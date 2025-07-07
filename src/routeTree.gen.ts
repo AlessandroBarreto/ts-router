@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrandIndexRouteImport } from './routes/$brand/index'
+import { Route as BrandLocaleIndexRouteImport } from './routes/$brand/$locale/index'
+import { Route as BrandLocaleAvailabilityRouteImport } from './routes/$brand/$locale/availability'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -22,31 +25,74 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandIndexRoute = BrandIndexRouteImport.update({
+  id: '/$brand/',
+  path: '/$brand/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandLocaleIndexRoute = BrandLocaleIndexRouteImport.update({
+  id: '/$brand/$locale/',
+  path: '/$brand/$locale/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandLocaleAvailabilityRoute = BrandLocaleAvailabilityRouteImport.update({
+  id: '/$brand/$locale/availability',
+  path: '/$brand/$locale/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/$brand': typeof BrandIndexRoute
+  '/$brand/$locale/availability': typeof BrandLocaleAvailabilityRoute
+  '/$brand/$locale': typeof BrandLocaleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/$brand': typeof BrandIndexRoute
+  '/$brand/$locale/availability': typeof BrandLocaleAvailabilityRoute
+  '/$brand/$locale': typeof BrandLocaleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/$brand/': typeof BrandIndexRoute
+  '/$brand/$locale/availability': typeof BrandLocaleAvailabilityRoute
+  '/$brand/$locale/': typeof BrandLocaleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/$brand'
+    | '/$brand/$locale/availability'
+    | '/$brand/$locale'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/about'
+    | '/$brand'
+    | '/$brand/$locale/availability'
+    | '/$brand/$locale'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/$brand/'
+    | '/$brand/$locale/availability'
+    | '/$brand/$locale/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BrandIndexRoute: typeof BrandIndexRoute
+  BrandLocaleAvailabilityRoute: typeof BrandLocaleAvailabilityRoute
+  BrandLocaleIndexRoute: typeof BrandLocaleIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +111,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$brand/': {
+      id: '/$brand/'
+      path: '/$brand'
+      fullPath: '/$brand'
+      preLoaderRoute: typeof BrandIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$brand/$locale/': {
+      id: '/$brand/$locale/'
+      path: '/$brand/$locale'
+      fullPath: '/$brand/$locale'
+      preLoaderRoute: typeof BrandLocaleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$brand/$locale/availability': {
+      id: '/$brand/$locale/availability'
+      path: '/$brand/$locale/availability'
+      fullPath: '/$brand/$locale/availability'
+      preLoaderRoute: typeof BrandLocaleAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BrandIndexRoute: BrandIndexRoute,
+  BrandLocaleAvailabilityRoute: BrandLocaleAvailabilityRoute,
+  BrandLocaleIndexRoute: BrandLocaleIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

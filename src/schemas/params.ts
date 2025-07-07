@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const allowedLocales = ['en-gb', 'fr', 'it'] as const;
+export const allowedLocales = ['en-gb', 'en-us', 'fr', 'it', 'es'] as const;
 export const allowedBrands = ['mamashelter', 'hoxton', '25hours'] as const;
 
 export const localeSchema = z.enum(allowedLocales);

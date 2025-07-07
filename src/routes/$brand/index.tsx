@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { brandSchema } from '../../schemas/params';
 
 export const Route = createFileRoute('/$brand/')({
+  parseParams: (params) => ({
+    brand: brandSchema.parse(params.brand),
+  }),
+  // stringifyParams: ({ brand }) => ({ brand }),
   component: BrandComponent,
 });
 

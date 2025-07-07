@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { paramsSchema } from '../../../schemas/params';
 
 export const Route = createFileRoute('/$brand/$locale/')({
+  params: paramsSchema,
   component: LocaleComponent,
 });
 

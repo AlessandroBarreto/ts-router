@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { paramsSchema } from '../../../schemas/params';
 import { useBrandLocaleTranslation } from '../../../hooks/useBrandLocaleTranslation';
-import '../../../index.css';
+import '../../../theme/global.css';
+import { useEffect } from 'react';
 
 export const Route = createFileRoute('/$brand/$locale/')({
   params: paramsSchema,
@@ -11,6 +12,10 @@ export const Route = createFileRoute('/$brand/$locale/')({
 function LocaleComponent() {
   const { brand, locale } = Route.useParams();
   const { t } = useBrandLocaleTranslation(locale);
+
+  useEffect(() => {
+    import(`../../../theme/brands/${brand}.css`);
+  }, [brand]);
 
   return (
     <div className={`theme-${brand} bg-primary`}>

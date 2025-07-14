@@ -13,12 +13,12 @@ function LocaleComponent() {
   const { t } = useBrandLocaleTranslation(locale);
 
   return (
-    <div className="bg-sky-500 text-gray-700">
-      <h1 className="text-2xl">{t('welcome')}</h1>
-      <h2>
+    <div className={`theme-${brand} bg-primary`}>
+      <h1 className="text-3xl text-mint-500">{t('welcome')}</h1>
+      <h2 className="text-2xl">
         {t('brand')}: {brand}
       </h2>
-      <h2>
+      <h2 className="text-1xl">
         {t('locale')}: {locale}
       </h2>
     </div>

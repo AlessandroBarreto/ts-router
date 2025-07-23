@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-
+import { Footer } from '../../../layout/footer';
 export const Route = createFileRoute('/$brand/$locale/availability')({
   component: Availability,
 });
@@ -11,6 +11,7 @@ function Availability() {
       <h1>Availability Page</h1>
       <h3>Brand: {brand}</h3>
       <h3>Locale: {locale}</h3>
+      <Footer />
     </div>
   );
 }
